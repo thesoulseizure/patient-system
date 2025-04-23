@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile - Patient System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+  <h1>Profile</h1>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h5 class="card-title" th:text="${patient.name} ?: 'Unknown Patient'">Unknown Patient</h5>
+      <p class="card-text"><strong>Email:</strong> <span th:text="${patient.email} ?: 'Not provided'">Not provided</span></p>
+      <p class="card-text"><strong>ID:</strong> <span th:text="${patient.id} ?: 'N/A'">N/A</span></p>
+      <p class="card-text"><strong>Phone:</strong> <span th:text="${patient.phone} ?: 'Not provided'">Not provided</span></p>
+      <p class="card-text"><strong>Medical History:</strong> <span th:text="${patient.medicalHistory} ?: 'Not available'">Not available</span></p>
+      <!-- Add edit functionality or more details if needed -->
+    </div>
+  </div>
+  <a href="/" class="btn btn-primary mt-3">Back to Home</a>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
