@@ -51,11 +51,10 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-           >No card needed for free tier
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>2.2.224</version>
-            <scope>compile</scope>
+            <scope>compile</scope> <!-- Changed from test to compile for runtime -->
         </dependency>
         <dependency>
             <groupId>jakarta.validation</groupId>
