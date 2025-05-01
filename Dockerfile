@@ -1,28 +1,17 @@
-# Use an official OpenJDK runtime as the base image
-FROM openjdk:17-jdk-slim
-
-# Set the working directory inside the container
+# Build stage
+FROM maven:3.8.6-openjdk-17 AS build
 WORKDIR /app
-
-# Copy the Maven wrapper and pom.xml
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-
-# Build the project (download dependencies)
 RUN ./mvnw dependency:go-offline
-
-# Copy the source code
 COPY src ./src
-
-# Package the application (skip tests to speed up build)
 RUN ./mvnw clean package -DskipTests
 
-# Expose the port your app runs on (Render defaults to 8080)
+# Runtime stage
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY --from=build /app/target/patient-system-1.0-SNAPSHOT.jar app.jar
 EXPOSE 8080
-
-# Set environment variables for memory management
 ENV JAVA_OPTS="-Xmx512m -Xms256m"
-
-# Run the Spring Boot application
-CMD ["java", "-jar", "target/patient-system-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
